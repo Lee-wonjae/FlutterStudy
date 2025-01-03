@@ -10,6 +10,11 @@ class HomeScreen extends StatelessWidget {
     127.07505567644,
   );
 
+  static final Marker marker = Marker(
+    markerId: MarkerId('school'),
+    position: companyLatLng,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +28,17 @@ class HomeScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            if (snapshot.data == '위치권한이 허가 되었습니다.') {
+            if (snapshot.data == '위치 권한이 허가 되었습니다.') {
               return Column(children: [
                 Expanded(
                   flex: 2,
                   child: GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                    target: companyLatLng,
-                    zoom: 16,
-                  )),
+                    initialCameraPosition: CameraPosition(
+                      target: companyLatLng,
+                      zoom: 16,
+                    ),
+                    markers: Set.from([marker]),
+                  ),
                 ),
                 Expanded(
                     flex: 1,
@@ -84,5 +91,5 @@ Future<String> checkPermission() async {
   if (checkedPermission == LocationPermission.deniedForever) {
     return '앱의 위치 권한을 허가해주세요';
   }
-  return '위치권한이 허가 되었습니다.';
+  return '위치 권한이 허가 되었습니다.';
 }
