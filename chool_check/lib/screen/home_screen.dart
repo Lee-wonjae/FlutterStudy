@@ -15,6 +15,15 @@ class HomeScreen extends StatelessWidget {
     position: companyLatLng,
   );
 
+  static final Circle circle = Circle(
+    circleId: CircleId('checkCircle'),
+    center: companyLatLng,
+    fillColor: Colors.blue.withValues(alpha: 0.5),//변경점
+    radius: 100,
+    strokeColor: Colors.blue,
+    strokeWidth: 1,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +46,9 @@ class HomeScreen extends StatelessWidget {
                       target: companyLatLng,
                       zoom: 16,
                     ),
-                    markers: Set.from([marker]),
+                    myLocationEnabled: true,
+                    //markers: Set.from([marker]),
+                    circles: Set.from([circle]),
                   ),
                 ),
                 Expanded(
