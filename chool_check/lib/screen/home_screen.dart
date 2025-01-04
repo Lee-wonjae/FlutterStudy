@@ -18,7 +18,8 @@ class HomeScreen extends StatelessWidget {
   static final Circle circle = Circle(
     circleId: CircleId('checkCircle'),
     center: companyLatLng,
-    fillColor: Colors.blue.withValues(alpha: 0.5),//변경점
+    fillColor: Colors.blue.withValues(alpha: 0.5),
+    //변경점
     radius: 100,
     strokeColor: Colors.blue,
     strokeWidth: 1,
@@ -59,7 +60,46 @@ class HomeScreen extends StatelessWidget {
                         Icon(Icons.timelapse_outlined,
                             color: Colors.blue, size: 50.0),
                         const SizedBox(height: 20.0),
-                        ElevatedButton(onPressed: () {}, child: Text("check")),
+                        ElevatedButton(
+                            onPressed: () async {
+                              final curPosition =
+                                  await Geolocator.getCurrentPosition();
+                              final distance = Geolocator.distanceBetween(
+                                curPosition.latitude,
+                                curPosition.longitude,
+                                companyLatLng.latitude,
+                                companyLatLng.longitude,
+                              );
+                              bool canCheck = distance < 100;
+                              showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return AlertDialog(
+                                      title: Text('check'),
+                                      content: Text(
+                                        canCheck
+                                            ? 'wanna check'
+                                            : 'far from school',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: Text('cancle'),
+                                        ),
+                                        if (canCheck)
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(true);
+                                            },
+                                            child: Text('check'),
+                                          )
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Text("check")),
                       ],
                     ))
               ]);
