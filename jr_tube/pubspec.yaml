@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   youtube_player_flutter: 8.1.0
   dio: 5.3.3
+  flutter_inappwebview: ^5.4.3
 
 dev_dependencies:
   flutter_test:
