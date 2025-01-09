@@ -1,7 +1,7 @@
 import 'package:calendar_scheduler/component/main_calendar.dart';
+import 'package:calendar_scheduler/component/schedule_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,8 +9,9 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-class _HomeScreenState extends State<HomeScreen>{
-  DateTime selectedDate=DateTime.utc(
+
+class _HomeScreenState extends State<HomeScreen> {
+  DateTime selectedDate = DateTime.utc(
     DateTime.now().year,
     DateTime.now().month,
     DateTime.now().day,
@@ -21,15 +22,24 @@ class _HomeScreenState extends State<HomeScreen>{
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [MainCalendar(onDaySelected: onDaySelected, selectedDate: selectedDate)],
+        children: [
+          MainCalendar(
+            onDaySelected: onDaySelected,
+            selectedDate: selectedDate,
+          ),
+          ScheduleCard(
+            startTime: 12,
+            endTime: 14,
+            content: 'flutter study',
+          )
+        ],
       )),
     );
   }
 
-  void onDaySelected(DateTime selectedDate,DateTime focusedDate){
-    setState((){
+  void onDaySelected(DateTime selectedDate, DateTime focusedDate) {
+    setState(() {
       this.selectedDate = selectedDate;
     });
   }
 }
-
