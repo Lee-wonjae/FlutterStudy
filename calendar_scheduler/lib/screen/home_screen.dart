@@ -29,7 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
             context: context,
             isDismissible: true,
-            builder: (_) => ScheduleBottomSheet(),
+            builder: (_) => ScheduleBottomSheet(
+              selectedDate: selectedDate,
+            ),
             isScrollControlled: true,
           );
         },
