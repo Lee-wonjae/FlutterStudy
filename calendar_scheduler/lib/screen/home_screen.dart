@@ -55,10 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 8,
               ),
-              TodayBanner(
-                selectedDate: selectedDate,
-                count: 0,
+              StreamBuilder<List<Schedule>>(
+                stream: GetIt.I<LocalDatabase>().watchSchedules(selectedDate),
+                builder: (context,snapshot){
+                  return TodayBanner(
+                    selectedDate: selectedDate,
+                    count: snapshot.data?.length ?? 0,
+                  );
+                },
               ),
+              SizedBox(
+                height: 8,
+              ),
+
               SizedBox(
                 height: 8,
               ),
@@ -76,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             final schedule = snapshot.data![index];
                             return Dismissible(
                               key: ObjectKey(schedule.id),
-                              direction: DismissDirection.startToEnd,
+                              direction: DismissDirection.endToStart,
                               onDismissed: (DismissDirection direction) {
                                 GetIt.I<LocalDatabase>().removeSchedule(
                                     schedule.id);
