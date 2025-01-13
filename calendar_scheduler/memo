@@ -30,3 +30,4 @@ ui에서 밀어서 스케줄을 삭제한다. 비지니스 로직은 deleteSched
 이 요청이 성공적이라면 post과정을 끝이난다.
 하지만 오류가 발생했다면, 캐시를 원상복구한다.
 그리고 notifyListeners()로 ui를 업데이트한다.
+이렇게 잘될거라고 예상하는 것을 postive response라고 한다.
